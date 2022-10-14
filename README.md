@@ -1,31 +1,83 @@
 # Sorting Lab
 
-## Learning Goals
+## Instruction
 
-- Learning Goal 1
-- Learning Goal 2
+NOTE: The junit test classes won't compile until after tasks 1-3 are completed.
 
-## Introduction
+### TASK #1:
 
-A 1-2 sentence summary of what will be covered.
+The `StockItem` class represents a concession item sold at a movie theater.
+Each stock item is uniquely identified by the `sku` (stock keeping unit).
+The `quantityOnHand` indicates the available amount of inventory for the item.
 
-## Instructions
+The `main` method in `StockItemMain` creates an array of `StockItem` objects and calls `Arrays.sort`
+to sort the array elements.  The program will throw an exception if executed
+because `StockItem` does not implement `java.lang.Comparable`. 
 
-Walk the student through any setup required to run the lesson (i.e.
-`npm install` and `npm start`).
+Update the `StockItem` class to implement the `java.lang.Comparable` interface. 
+The class should override `compareTo` to compare stock item objects based on `quantityOnHand`.
 
-## Deliverables
+Rerun the `main` method in `StockItemMain` and confirm the output:
 
-List each of the deliverables the student must complete in order to finish the
-lab. Provide as much context as possible, including instructions on how to run
-the tests and other means of validating successful completion of deliverables.
+```text
+Sorted by quantity on hand:[
+StockItem{sku='bev-cup-36oz', quantityOnHand=50}, 
+StockItem{sku='bev-cup-24oz', quantityOnHand=100}, 
+StockItem{sku='m&m-3oz', quantityOnHand=320}]
+```
 
-## Conclusion
+### TASK #2: Do not modify the `Movie` class.
 
-A short one or two paragraph summary of the contents of the lessons, recapping
-the learning goals.
+The `Movie` class has instance variables `title`, `releaseYear`, and `distributor`.
+We might want to sort movies by title, year of release, or by distributor.
+Let's start by creating a comparator to sort by the year of release.  
 
-## Resources
+Create a new class `YearComparator` that implements `java.util.Comparator`,
+overriding the `compare` method to compare two movies by the release year.
 
-- [Resource Link 1](example.com)
-- [Resource Link 2](example.com)
+Edit the `main` method in `SortMovieMain` to sort the array using a `YearComparator` class instance.
+Print the array contents after sorting the array.
+
+```java
+Arrays.sort(movies, new YearComparator());
+System.out.println("Sort movies by year of release: " +  Arrays.toString(movies));
+```
+
+Rerun the `main` method in `SortMovieMain` and confirm the output:
+
+```text
+Sort movies by year of release: [
+Movie{title='The Lord of the Rings: The Two Towers', releaseYear=2002, distributor='New Line Cinema'}, 
+Movie{title='Cars', releaseYear=2006, distributor='Walt Disney Pictures'}, 
+Movie{title='Thor, Love and Thunder', releaseYear=2022, distributor='Walt Disney Pictures'}, 
+Movie{title='Top Gun: Maverick', releaseYear=2022, distributor='Paramount Pictures'}]
+```
+
+### TASK #3:
+
+Create a second class named `TitleComparator` that implements `java.util.Comparator`.
+The new comparator should  compare movies by their title.
+
+Update the `main` method in `SortMovieMain` appending additional lines of code to sort by title:
+
+```java
+Arrays.sort(movies, new TitleComparator());
+System.out.println("Sort movie by title: " +  Arrays.toString(movies));
+```
+
+Rerun the `main` method in `SortMovieMain` and confirm the new comparator sorts the array by title:
+
+```text
+Sort movie by title: [
+Movie{title='Cars', releaseYear=2006, distributor='Walt Disney Pictures'}, 
+Movie{title='The Lord of the Rings: The Two Towers', releaseYear=2002, distributor='New Line Cinema'}, 
+Movie{title='Thor, Love and Thunder', releaseYear=2022, distributor='Walt Disney Pictures'}, 
+Movie{title='Top Gun: Maverick', releaseYear=2022, distributor='Paramount Pictures'}]
+```
+### Task #4:
+
+Run the 3 Junit test classes in the test/java folder to confirm the correct implementation.
+
+- `StockItemTest` 
+- `YearComparatorTest` 
+- `TitleComparatorTest` 
